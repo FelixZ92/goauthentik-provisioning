@@ -27,3 +27,10 @@ resource "authentik_flow_stage_binding" "github_flow_login_binding" {
   stage  = data.authentik_stage.default_source_authentication_login.id
   target = authentik_flow.github_flow.uuid
 }
+
+resource "authentik_policy_binding" "github_flow_check_org" {
+  order  = 0
+  target = authentik_flow_stage_binding.github_flow_login_binding.id
+  policy = authentik_policy_expression.check_github_org.id
+  timeout = 30
+}
