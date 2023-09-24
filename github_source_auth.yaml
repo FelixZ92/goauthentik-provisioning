@@ -1,0 +1,44 @@
+# yaml-language-server: $schema=https://goauthentik.io/blueprints/schema.json
+metadata:
+  name: GitHub - Authentication flow
+  labels:
+    blueprints.goauthentik.io/description: redirect to github for authentication and check against org membership
+version: 1
+context: {}
+entries:
+  - attrs:
+      authentication: require_unauthenticated
+      designation: authentication
+      name: Welcome to authentik!
+      policy_engine_mode: all
+      title: Welcome to authentik!
+    id: flow
+    identifiers:
+      slug: github-source-authentication
+    model: authentik_flows.flow
+  - attrs:
+      remember_me_offset: seconds=0
+      session_duration: seconds=0
+    id: default-source-authentication-login
+    identifiers:
+      pk: !Find [authentik_stages_user_login.userloginstage, [slug, default-source-authentication-login]]
+    model: authentik_stages_user_login.userloginstage
+  - attrs:
+      invalid_response_action: retry
+      policy_engine_mode: any
+      re_evaluate_policies: true
+    id: login
+    identifiers:
+      order: 0
+      stage: !KeyOf default-source-authentication-login
+      target: !KeyOf flow
+    model: authentik_flows.flowstagebinding
+  - attrs:
+      enabled: true
+      timeout: 30
+    id: check-sso
+    identifiers:
+      order: 0
+      policy: !Find [authentik_policies_expression.expressionpolicy, [slug, default-source-authentication-if-sso]]
+      target: !KeyOf flow
+    model: authentik_policies.policybinding
