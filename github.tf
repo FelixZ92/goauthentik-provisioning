@@ -24,5 +24,5 @@ resource "authentik_policy_expression" "check_github_org" {
 
 resource "authentik_blueprint" "github_authentication_flow" {
   name = "github_authentication_blueprint"
-  path = "github_source_auth.yaml"
+  content = file("github_source_auth.yaml")
 }
