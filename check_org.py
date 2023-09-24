@@ -1,5 +1,5 @@
 # Ensure flow is only run during oauth logins via Github
-if context["source"].provider_type != "github":
+if context['source'].provider_type != "github":
     return True
 
 accepted_org = "fzx"
@@ -34,4 +34,5 @@ orgs = orgs_response.json()
 user_matched = any(org['login'] == accepted_org for org in orgs)
 if not user_matched:
     ak_message(f"User is not member of {accepted_org}.")
+
 return user_matched

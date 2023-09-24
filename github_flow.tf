@@ -10,6 +10,7 @@ resource "authentik_flow" "github_flow" {
 resource "authentik_policy_expression" "github_flow_is_sso" {
   expression = "return ak_is_sso_flow"
   name       = "github_flow_is_sso"
+  execution_logging = true
 }
 
 resource "authentik_policy_binding" "github_flow_is_sso" {
@@ -32,6 +33,7 @@ resource "authentik_flow_stage_binding" "github_flow_login_binding" {
 resource "authentik_policy_expression" "check_github_org" {
   expression = file("./check_org.py")
   name       = "github_check_organization"
+  execution_logging = true
 }
 
 resource "authentik_policy_binding" "github_flow_check_org" {
