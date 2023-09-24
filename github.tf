@@ -21,8 +21,3 @@ resource "authentik_policy_expression" "check_github_org" {
   expression = file("./check_org.py")
   name       = "github_check_organization"
 }
-
-resource "authentik_blueprint" "github_authentication_flow" {
-  name = "github_authentication_blueprint"
-  content = file("github_source_auth.yaml")
-}
