@@ -1,19 +1,26 @@
 terraform {
   required_version = ">= 0.14.0"
+  required_providers {
+    authentik = {
+      source  = "goauthentik/authentik"
+      version = "~> 2023.8.0"
+    }
+  }
 }
 
-data "http" "myip" {
-  url = "http://ipv4.icanhazip.com"
+provider "authentik" {
+  token = var.authentik_token
+  url   = var.authentik_url
+  insecure = var.environment != "prod" ? true : false
 }
 
-variable "test_var" {
-  default = ""
+resource "authentik_service_connection_kubernetes" "local" {
+  name  = "local"
+  local = true
 }
 
-output "my_ip_addr" {
-  value = data.http.myip.body
+resource "authentik_group" "cluster_admins" {
+  name         = "cluster-admins"
+  is_superuser = false
 }
 
-output "wusa" {
-  value = var.test_var
-}
