@@ -2,7 +2,7 @@
 if context["source"].provider_type != "github":
     return True
 
-accepted_org = "foo"
+accepted_org = "fzx"
 
 # Get the user-source connection object from the context, and get the access token
 connection = context["goauthentik.io/sources/connection"]
