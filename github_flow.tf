@@ -17,3 +17,13 @@ resource "authentik_policy_binding" "github_flow_is_sso" {
   policy = authentik_policy_expression.github_flow_is_sso.id
   timeout = 30
 }
+
+data "authentik_stage" "default_source_authentication_login" {
+  name = "default-source-authentication-login"
+}
+
+resource "authentik_flow_stage_binding" "github_flow_login_binding" {
+  order  = 0
+  stage  = data.authentik_stage.default_source_authentication_login.id
+  target = authentik_flow.github_flow.uuid
+}
