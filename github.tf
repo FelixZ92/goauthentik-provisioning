@@ -1,5 +1,5 @@
 data "authentik_flow" "default-authentication-flow" {
-  slug = "default-authentication-flow"
+  slug = "default-source-authentication"
 }
 
 data "authentik_flow" "default-enrollment-flow" {
