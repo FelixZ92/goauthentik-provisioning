@@ -4,6 +4,7 @@ resource "authentik_flow" "github_flow" {
   slug        = "github-source-authentication"
   title       = "Welcome to authentik!"
   authentication = "require_unauthenticated"
+  denied_action = "message"
 }
 
 resource "authentik_policy_expression" "github_flow_is_sso" {
