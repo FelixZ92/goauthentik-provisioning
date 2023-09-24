@@ -16,3 +16,8 @@ resource "authentik_source_oauth" "github_app" {
   provider_type       = "github"
   slug                = "github"
 }
+
+resource "authentik_policy_expression" "check_github_org" {
+  expression = file("./check_org.py")
+  name       = "github_check_organization"
+}
