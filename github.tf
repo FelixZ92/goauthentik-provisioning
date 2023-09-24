@@ -10,7 +10,7 @@ resource "authentik_source_oauth" "github_app" {
   authentication_flow = data.authentik_flow.default-authentication-flow.id
   consumer_key        = var.github_app_client_secret
   consumer_secret     = var.github_app_client_secret
-  enrollment_flow     = data.authentik_flow.default-enrollment-flow
+  enrollment_flow     = data.authentik_flow.default-enrollment-flow.id
   name                = "Github"
   provider_type       = "github"
   slug                = "github"
