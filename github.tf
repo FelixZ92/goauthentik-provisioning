@@ -7,7 +7,7 @@ data "authentik_flow" "default-enrollment-flow" {
 }
 
 resource "authentik_source_oauth" "github_app" {
-  authentication_flow = data.authentik_flow.default-authentication-flow.id
+  authentication_flow = authentik_flow.github_flow.uuid
   consumer_key        = var.github_app_client_id
   consumer_secret     = var.github_app_client_secret
   enrollment_flow     = data.authentik_flow.default-enrollment-flow.id
@@ -15,9 +15,4 @@ resource "authentik_source_oauth" "github_app" {
   name                = "Github"
   provider_type       = "github"
   slug                = "github"
-}
-
-resource "authentik_policy_expression" "check_github_org" {
-  expression = file("./check_org.py")
-  name       = "github_check_organization"
 }

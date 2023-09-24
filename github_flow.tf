@@ -28,6 +28,11 @@ resource "authentik_flow_stage_binding" "github_flow_login_binding" {
   target = authentik_flow.github_flow.uuid
 }
 
+resource "authentik_policy_expression" "check_github_org" {
+  expression = file("./check_org.py")
+  name       = "github_check_organization"
+}
+
 resource "authentik_policy_binding" "github_flow_check_org" {
   order  = 0
   target = authentik_flow_stage_binding.github_flow_login_binding.id
