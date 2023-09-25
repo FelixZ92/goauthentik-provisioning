@@ -34,5 +34,6 @@ orgs = orgs_response.json()
 user_matched = any(org['login'] == accepted_org for org in orgs)
 if not user_matched:
     ak_message("User is not member of " + accepted_org + '.')
+    return False
 
 return user_matched
