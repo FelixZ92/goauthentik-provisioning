@@ -20,6 +20,11 @@ variable "grafana_client_secret" {
   sensitive = true
 }
 
+variable "wego_client_secret" {
+  default = ""
+  sensitive = true
+}
+
 variable "github_app_client_secret" {
   default = ""
   sensitive = true
