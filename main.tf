@@ -23,4 +23,3 @@ resource "authentik_group" "cluster_admins" {
   name         = "cluster-admins"
   is_superuser = false
 }
-

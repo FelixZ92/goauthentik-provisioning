@@ -1,3 +1,4 @@
+# TODO: add policy to enrollment flow
 resource "authentik_flow" "github_flow" {
   designation = "authentication"
   name        = "Welcome to authentik!"
