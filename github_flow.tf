@@ -72,32 +72,32 @@ data "authentik_stage" "default_source_enrollment_login" {
   name = "default-source-enrollment-login"
 }
 
-resource "authentik_flow_stage_binding" "github_enrollment_prompt" {
-  order  = 0
-  stage  = data.authentik_stage.default_source_enrollment_prompt.id
-  target = authentik_flow.github_source_enrollment.uuid
-}
+#resource "authentik_flow_stage_binding" "github_enrollment_prompt" {
+#  order  = 0
+#  stage  = data.authentik_stage.default_source_enrollment_prompt.id
+#  target = authentik_flow.github_source_enrollment.uuid
+#}
 
 resource "authentik_policy_expression" "source_enrollment_if_username" {
   expression = "return 'username' not in context.get('prompt_data', {})"
   name       = "github-source-enrollment-if-username"
 }
 
-resource "authentik_policy_binding" "github_enrollment_prompt_if_username" {
-  order  = 0
-  target = authentik_flow_stage_binding.github_enrollment_prompt.id
-  policy = authentik_policy_expression.source_enrollment_if_username.id
-  timeout = 30
-}
+#resource "authentik_policy_binding" "github_enrollment_prompt_if_username" {
+#  order  = 0
+#  target = authentik_flow_stage_binding.github_enrollment_prompt.id
+#  policy = authentik_policy_expression.source_enrollment_if_username.id
+#  timeout = 30
+#}
 
 resource "authentik_flow_stage_binding" "github_enrollment_write" {
-  order  = 1
+  order  = 0
   stage  = data.authentik_stage.default_source_enrollment_write.id
   target = authentik_flow.github_source_enrollment.uuid
 }
 
 resource "authentik_flow_stage_binding" "github_enrollment_login" {
-  order  = 2
+  order  = 1
   stage  = data.authentik_stage.default_source_enrollment_login.id
   target = authentik_flow.github_source_enrollment.uuid
 }
