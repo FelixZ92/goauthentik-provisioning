@@ -38,8 +38,8 @@ resource "authentik_policy_expression" "check_github_org" {
 }
 
 resource "authentik_policy_binding" "github_flow_check_org" {
-  order  = 0
-  target = authentik_flow_stage_binding.github_flow_login_binding.id
+  order  = 10
+  target = authentik_flow.github_flow.uuid
   policy = authentik_policy_expression.check_github_org.id
   timeout = 30
 }
