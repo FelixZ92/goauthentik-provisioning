@@ -107,4 +107,5 @@ resource "authentik_policy_binding" "github_enrollment_flow_check_org" {
   target = authentik_flow_stage_binding.github_enrollment_write.id
   policy = authentik_policy_expression.check_github_org.id
   timeout = 30
+
 }
