@@ -102,9 +102,9 @@ resource "authentik_flow_stage_binding" "github_enrollment_login" {
   target = authentik_flow.github_source_enrollment.uuid
 }
 
-#resource "authentik_policy_binding" "github_enrollment_flow_check_org" {
-#  order  = 0
-#  target = authentik_flow_stage_binding.github_enrollment_write.id
-#  policy = authentik_policy_expression.check_github_org.id
-#  timeout = 30
-#}
+resource "authentik_policy_binding" "github_enrollment_flow_check_org" {
+  order  = 1
+  target = authentik_flow_stage_binding.github_enrollment_write.id
+  policy = authentik_policy_expression.check_github_org.id
+  timeout = 30
+}
