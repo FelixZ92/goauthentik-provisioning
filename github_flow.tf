@@ -97,7 +97,7 @@ resource "authentik_flow_stage_binding" "github_enrollment_write" {
 }
 
 resource "authentik_flow_stage_binding" "github_enrollment_login" {
-  order  = 1
+  order  = 2
   stage  = data.authentik_stage.default_source_enrollment_login.id
   target = authentik_flow.github_source_enrollment.uuid
 }
