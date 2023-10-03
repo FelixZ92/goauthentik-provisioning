@@ -1,6 +1,7 @@
 from authentik.core.models import Group
-#email = request.context["oauth_userinfo"]["email"]
-group, _ = Group.objects.get_or_create(name="some-group")
+email = request.context["pending_user"]["email"]
+group1, _ = Group.objects.get_or_create(name="some-group")
+group2, _ = Group.objects.get_or_create(name=email)
 # ["groups"] *must* be set to an array of Group objects, names alone are not enough.
-request.context["flow_plan"].context["groups"] = [group]
+request.context["flow_plan"].context["groups"] = [group1, group2]
 return True
