@@ -53,6 +53,13 @@ resource "authentik_flow" "github_source_enrollment" {
   denied_action = "message"
 }
 
+resource "authentik_policy_binding" "github_enrollment_flow_is_sso" {
+  order  = 0
+  target = authentik_flow.github_source_enrollment.uuid
+  policy = authentik_policy_expression.github_flow_is_sso.id
+  timeout = 30
+}
+
 data "authentik_stage" "default_source_enrollment_prompt" {
   name = "default-source-enrollment-prompt"
 }
