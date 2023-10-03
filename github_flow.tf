@@ -50,7 +50,7 @@ resource "authentik_flow" "github_source_enrollment" {
   slug        = "github-source-enrollment"
   title       = "Welcome to authentik!"
   authentication = "none"
-  denied_action = "message"
+  denied_action = "message_continue"
 }
 
 resource "authentik_policy_binding" "github_enrollment_flow_is_sso" {
