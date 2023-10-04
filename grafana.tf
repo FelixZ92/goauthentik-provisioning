@@ -49,3 +49,4 @@ resource "authentik_policy_binding" "grafana_admins" {
   target = authentik_application.grafana.uuid
   group = authentik_group.grafana_admins.id
 }
+
