@@ -45,7 +45,7 @@ resource "authentik_flow_stage_binding" "google_source_enrollment_login" {
   target = authentik_flow.google_enrollment_flow.uuid
 }
 
-resource "authentik_source_oauth" "github_app" {
+resource "authentik_source_oauth" "google_source" {
   authentication_flow = data.authentik_flow.default-authentication-flow.id
   consumer_key        = var.google_client_id
   consumer_secret     = var.google_client_secret
