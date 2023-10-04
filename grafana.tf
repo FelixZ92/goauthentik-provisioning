@@ -44,7 +44,7 @@ resource "authentik_policy_binding" "grafana_editors" {
   group = authentik_group.grafana_editors.id
 }
 
-resource "authentik_policy_binding" "grafana_editors" {
+resource "authentik_policy_binding" "grafana_admins" {
   order  = 0
   target = authentik_application.grafana.uuid
   group = authentik_group.grafana_admins.id
