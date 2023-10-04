@@ -30,3 +30,15 @@ resource "authentik_application" "wego" {
   meta_description  = "https://docs.gitops.weave.works/"
   meta_launch_url   = format("https://flux.%s/", var.base_domain)
 }
+
+resource "authentik_policy_binding" "wego_readonly" {
+  order  = 0
+  target = authentik_application.wego.uuid
+  group = authentik_group.wego_readonly.id
+}
+
+resource "authentik_policy_binding" "wego_admins" {
+  order  = 0
+  target = authentik_application.wego.uuid
+  group = authentik_group.wego_admins.id
+}
