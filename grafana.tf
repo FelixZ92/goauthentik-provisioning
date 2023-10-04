@@ -37,3 +37,9 @@ resource "authentik_application" "grafana" {
   meta_description  = "https://grafana.com/docs/grafana/latest/"
   meta_launch_url   = format("https://grafana.%s/", var.base_domain)
 }
+
+resource "authentik_policy_binding" "grafana_editors" {
+  order  = 0
+  target = authentik_application.grafana.uuid
+  group = authentik_group.grafana_editors.id
+}
