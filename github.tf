@@ -1,11 +1,3 @@
-data "authentik_flow" "default-authentication-flow" {
-  slug = "default-source-authentication"
-}
-
-data "authentik_flow" "default-enrollment-flow" {
-  slug = "default-source-enrollment"
-}
-
 resource "authentik_source_oauth" "github_app" {
   authentication_flow = authentik_flow.github_flow.uuid
   consumer_key        = var.github_app_client_id

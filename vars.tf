@@ -34,3 +34,14 @@ variable "github_app_client_id" {
   default = ""
   sensitive = true
 }
+
+variable "google_client_secret" {
+  default = ""
+  sensitive = true
+}
+
+variable "google_client_id" {
+  default = ""
+  sensitive = true
+}
+
