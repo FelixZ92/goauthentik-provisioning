@@ -16,12 +16,6 @@ resource "authentik_policy_expression" "google_source_enrollment_is_sso" {
   name       = "google-source-enrollment-is-sso"
 }
 
-resource "authentik_policy_binding" "google_is_sso" {
-  order  = 0
-  target = authentik_flow.google_enrollment_flow.uuid
-  policy = authentik_policy_expression.google_source_enrollment_is_sso.id
-}
-
 resource "authentik_flow_stage_binding" "google_source_enrollment_write" {
   order  = 10
   stage  = data.authentik_stage.default_source_enrollment_write.id
@@ -35,7 +29,7 @@ resource "authentik_policy_expression" "google_source_enrollment_force_email" {
 
 resource "authentik_policy_binding" "google_source_enrollment_force_email" {
   order  = 0
-  target = authentik_flow_stage_binding.google_source_enrollment_write.id
+  target = authentik_flow.google_enrollment_flow.uuid
   policy = authentik_policy_expression.google_source_enrollment_force_email.id
 }
 
