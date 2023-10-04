@@ -23,7 +23,7 @@ resource "authentik_policy_binding" "google_is_sso" {
 }
 
 resource "authentik_flow_stage_binding" "google_source_enrollment_write" {
-  order  = 0
+  order  = 10
   stage  = data.authentik_stage.default_source_enrollment_write.id
   target = authentik_flow.google_enrollment_flow.uuid
 }
@@ -40,7 +40,7 @@ resource "authentik_policy_binding" "google_source_enrollment_force_email" {
 }
 
 resource "authentik_flow_stage_binding" "google_source_enrollment_login" {
-  order  = 0
+  order  = 20
   stage  = data.authentik_stage.default_source_enrollment_login.id
   target = authentik_flow.google_enrollment_flow.uuid
 }
