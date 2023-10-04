@@ -2,6 +2,10 @@ data "authentik_flow" "default-authentication-flow" {
   slug = "default-source-authentication"
 }
 
+data "authentik_flow" "default-enrollment-flow" {
+  slug = "default-source-enrollment"
+}
+
 resource "authentik_flow" "google_enrollment_flow" {
   designation = "enrollment"
   name        = "Welcome to authentik!"
@@ -43,7 +47,8 @@ resource "authentik_source_oauth" "google_source" {
   authentication_flow = data.authentik_flow.default-authentication-flow.id
   consumer_key        = var.google_client_id
   consumer_secret     = var.google_client_secret
-  enrollment_flow     = authentik_flow.google_enrollment_flow.uuid
+  #enrollment_flow     = authentik_flow.google_enrollment_flow.uuid
+  enrollment_flow = data.authentik_flow.default-enrollment-flow.id
   name                = "google"
   provider_type       = "google"
   slug                = "google"
