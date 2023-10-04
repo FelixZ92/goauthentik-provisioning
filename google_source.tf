@@ -44,7 +44,6 @@ resource "authentik_source_oauth" "google_source" {
   consumer_key        = var.google_client_id
   consumer_secret     = var.google_client_secret
   enrollment_flow     = authentik_flow.google_enrollment_flow.uuid
-  additional_scopes = "read:org"
   name                = "google"
   provider_type       = "google"
   slug                = "google"
