@@ -29,7 +29,7 @@ resource "authentik_group" "ocis_ldap_search" {
 
 resource "authentik_user" "ocis_ldap_user" {
   username = "ocis-ldap"
-  type = "service-account"
+  type = "service_account"
   groups = [authentik_group.ocis_ldap_search.id]
   path = "goauthentik.io/serviceaccounts"
 }
