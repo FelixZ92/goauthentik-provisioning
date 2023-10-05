@@ -3,4 +3,4 @@ email = request.context["prompt_data"]["email"]
 request.context["prompt_data"]["username"] = email
 # Set username to email without domain
 # request.context["prompt_data"]["username"] = email.split("@")[0]
-return False
+return True
