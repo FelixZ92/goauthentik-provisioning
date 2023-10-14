@@ -20,10 +20,15 @@ resource "authentik_group" "grafana_editors" {
   is_superuser = false
 }
 
+data "doppler_secrets" "grafana" {
+  config = "${var.environment}_grafana-oauth"
+  project = "infra"
+}
+
 resource "authentik_provider_oauth2" "grafana" {
   name               = "grafana"
   client_id          = "grafana"
-  client_secret      = var.grafana_client_secret
+  client_secret      = data.doppler_secrets.grafana.map.CLIENT_SECRET
   authorization_flow = data.authentik_flow.default-authorization-flow.id
   property_mappings  = data.authentik_scope_mapping.scope-mapping.ids
   redirect_uris      = [format("https://grafana.%s/login/generic_oauth", var.base_domain)]

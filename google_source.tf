@@ -43,12 +43,16 @@ resource "authentik_flow_stage_binding" "google_source_enrollment_login" {
   target = authentik_flow.google_enrollment_flow.uuid
 }
 
+data "doppler_secrets" "google" {
+  config = "${var.environment}_google-oauth"
+  project = "infra"
+}
+
 resource "authentik_source_oauth" "google_source" {
   authentication_flow = data.authentik_flow.default-authentication-flow.id
-  consumer_key        = var.google_client_id
-  consumer_secret     = var.google_client_secret
+  consumer_key        = data.doppler_secrets.google.map.CLIENT_ID
+  consumer_secret     = data.doppler_secrets.google.map.CLIENT_SECRET
   enrollment_flow     = authentik_flow.google_enrollment_flow.uuid
-  #enrollment_flow = data.authentik_flow.default-enrollment-flow.id
   name                = "google"
   provider_type       = "google"
   slug                = "google"

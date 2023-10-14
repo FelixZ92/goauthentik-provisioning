@@ -5,13 +5,25 @@ terraform {
       source  = "goauthentik/authentik"
       version = "~> 2023.8.0"
     }
+    doppler = {
+      source = "DopplerHQ/doppler"
+      version = "1.3.0"
+    }
   }
 }
 
+provider "doppler" {
+  doppler_token = var.doppler_token
+}
+
+data "doppler_secrets" "authentik" {
+  config = "${var.environment}_authentik"
+  project = "infra"
+}
+
 provider "authentik" {
-  token = var.authentik_token
+  token = data.doppler_secrets.authentik.map.AUTHENTIK_BOOTSTRAP_TOKEN
   url   = var.authentik_url
-  insecure = var.environment != "prod" ? true : false
 }
 
 resource "authentik_service_connection_kubernetes" "local" {

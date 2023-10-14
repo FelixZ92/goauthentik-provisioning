@@ -12,10 +12,15 @@ resource "authentik_group" "wego_readonly" {
   is_superuser = false
 }
 
+data "doppler_secrets" "wego" {
+  config = "${var.environment}_wego"
+  project = "infra"
+}
+
 resource "authentik_provider_oauth2" "wego" {
   name               = "wego"
   client_id          = "wego"
-  client_secret      = var.wego_client_secret
+  client_secret      = data.doppler_secrets.wego.map.CLIENT_SECRET
   authorization_flow = data.authentik_flow.default-authorization-flow.id
   property_mappings  = data.authentik_scope_mapping.scope-mapping.ids
   redirect_uris      = [format("https://flux.%s/oauth2/callback", var.base_domain)]
