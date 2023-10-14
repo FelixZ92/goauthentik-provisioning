@@ -39,10 +39,10 @@ resource "tls_self_signed_cert" "ocis_ldap_cert" {
     organization = "fzx"
   }
   dns_names = [
-    "ak-outpost-ldap",
-    "ak-outpost-ldap.authentik",
-    "ak-outpost-ldap.authentik.svc",
-    "ak-outpost-ldap.authentik.svc.cluster.local",
+    "ak-outpost-ldap-ocis",
+    "ak-outpost-ldap-ocis.authentik",
+    "ak-outpost-ldap-ocis.authentik.svc",
+    "ak-outpost-ldap-ocis.authentik.svc.cluster.local",
   ]
   validity_period_hours = 1440
 
@@ -57,4 +57,19 @@ resource "authentik_certificate_key_pair" "ldap-cert" {
   certificate_data = tls_self_signed_cert.ocis_ldap_cert.cert_pem
   key_data = tls_private_key.ocis_ldap_key.private_key_pem
   name             = "ldap-cert"
+}
+
+data "authentik_flow" "default-authentication-flow" {
+  slug = "default-authentication-flow"
+}
+
+resource "authentik_provider_ldap" "ldap_ocis" {
+  base_dn   = "DC=ldap,DC=goauthentik,DC=io"
+  bind_flow = data.authentik_flow.default-authentication-flow.id
+  name      = "ldap-ocis"
+  search_group = authentik_group.ldap_search.id
+  search_mode = "cached"
+  bind_mode = "cached"
+  certificate = authentik_certificate_key_pair.ldap-cert.id
+  tls_server_name = "ak-outpost-ldap-ocis.authentik.svc.cluster.local"
 }
