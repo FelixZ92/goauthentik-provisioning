@@ -32,7 +32,6 @@ resource "tls_private_key" "ocis_ldap_key" {
 }
 
 resource "tls_self_signed_cert" "ocis_ldap_cert" {
-  key_algorithm   = "ECDSA"
   private_key_pem = tls_private_key.ocis_ldap_key.private_key_pem
 
   subject {
