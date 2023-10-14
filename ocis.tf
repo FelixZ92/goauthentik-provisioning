@@ -73,3 +73,13 @@ resource "authentik_provider_ldap" "ldap_ocis" {
   certificate = authentik_certificate_key_pair.ldap-cert.id
   tls_server_name = "ak-outpost-ldap-ocis.authentik.svc.cluster.local"
 }
+
+resource "authentik_provider_oauth2" "ocis" {
+  name               = "ocis"
+  client_id          = "ocis"
+  client_type = "public"
+  authorization_flow = data.authentik_flow.default-authorization-flow.id
+  property_mappings  = data.authentik_scope_mapping.scope-mapping.ids
+  redirect_uris      = [format("https://ocis.%s/*", var.base_domain)]
+  sub_mode = "user_email"
+}
