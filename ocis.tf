@@ -31,6 +31,7 @@ resource "authentik_token" "ocis_ldap_password" {
   user       = authentik_user.ocis_ldap_user.id
   intent = "app_password"
   expiring = false
+  retrieve_key = true
 }
 
 resource "doppler_secret" "ldap_bind_password" {
