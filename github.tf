@@ -1,6 +1,6 @@
 data "doppler_secrets" "github" {
   config = "${var.environment}_github-application"
-  project = "infra"
+  project = "infrastructure"
 }
 
 resource "authentik_source_oauth" "github_app" {

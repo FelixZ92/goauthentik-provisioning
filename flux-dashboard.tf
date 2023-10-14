@@ -14,7 +14,7 @@ resource "authentik_group" "wego_readonly" {
 
 data "doppler_secrets" "wego" {
   config = "${var.environment}_wego"
-  project = "infra"
+  project = "infrastructure"
 }
 
 resource "authentik_provider_oauth2" "wego" {

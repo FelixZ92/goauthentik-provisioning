@@ -45,7 +45,7 @@ resource "authentik_flow_stage_binding" "google_source_enrollment_login" {
 
 data "doppler_secrets" "google" {
   config = "${var.environment}_google-oauth"
-  project = "infra"
+  project = "infrastructure"
 }
 
 resource "authentik_source_oauth" "google_source" {

@@ -18,7 +18,7 @@ provider "doppler" {
 
 data "doppler_secrets" "authentik" {
   config = "${var.environment}_authentik"
-  project = "infra"
+  project = "infrastructure"
 }
 
 provider "authentik" {

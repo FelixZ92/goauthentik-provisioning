@@ -22,7 +22,7 @@ resource "authentik_group" "grafana_editors" {
 
 data "doppler_secrets" "grafana" {
   config = "${var.environment}_grafana-oauth"
-  project = "infra"
+  project = "infrastructure"
 }
 
 resource "authentik_provider_oauth2" "grafana" {
