@@ -1,4 +1,4 @@
-data "authentik_flow" "default-authentication-flow" {
+data "authentik_flow" "default-source-authentication-flow" {
   slug = "default-source-authentication"
 }
 
@@ -49,7 +49,7 @@ data "doppler_secrets" "google" {
 }
 
 resource "authentik_source_oauth" "google_source" {
-  authentication_flow = data.authentik_flow.default-authentication-flow.id
+  authentication_flow = data.authentik_flow.default-source-authentication-flow.id
   consumer_key        = data.doppler_secrets.google.map.CLIENT_ID
   consumer_secret     = data.doppler_secrets.google.map.CLIENT_SECRET
   enrollment_flow     = authentik_flow.google_enrollment_flow.uuid
