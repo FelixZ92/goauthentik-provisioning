@@ -26,6 +26,13 @@ resource "authentik_user" "ocis_ldap_user" {
   path = "goauthentik.io/serviceaccounts"
 }
 
+resource "authentik_token" "ocis_ldap_password" {
+  identifier = "ldap-ocis-password"
+  user       = authentik_user.ocis_ldap_user.id
+  intent = "app"
+  expiring = false
+}
+
 resource "tls_private_key" "ocis_ldap_key" {
   algorithm   = "ECDSA"
   ecdsa_curve = "P384"
