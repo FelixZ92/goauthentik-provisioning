@@ -83,3 +83,13 @@ resource "authentik_provider_oauth2" "ocis" {
   redirect_uris      = [format("https://ocis.%s/*", var.base_domain)]
   sub_mode = "user_email"
 }
+
+resource "authentik_application" "ocis" {
+  name              = "ocis"
+  slug              = "ocis"
+  protocol_provider = authentik_provider_oauth2.ocis.id
+  meta_icon         = "https://avatars.githubusercontent.com/u/1645051?s=200&v=4"
+  meta_description  = "https://owncloud.com/infinite-scale-4-0"
+  meta_launch_url   = format("https://ocis.%s/", var.base_domain)
+  backchannel_providers = [authentik_provider_ldap.ldap_ocis.id]
+}
