@@ -26,20 +26,20 @@ resource "authentik_user" "ocis_ldap_user" {
   path = "goauthentik.io/serviceaccounts"
 }
 
-resource "authentik_token" "ocis_ldap_password" {
-  identifier = "ldap-ocis-bind-password"
-  user       = authentik_user.ocis_ldap_user.id
-  intent = "app_password"
-  expiring = false
-  retrieve_key = true
-}
-
-resource "doppler_secret" "ldap_bind_password" {
-  config  = "${var.environment}_ocis"
-  name    = "LDAP_BIND_PASSWORD"
-  project = "infrastructure"
-  value   = nonsensitive(authentik_token.ocis_ldap_password.key)
-}
+#resource "authentik_token" "ocis_ldap_password" {
+#  identifier = "ldap-ocis-bind-password"
+#  user       = authentik_user.ocis_ldap_user.id
+#  intent = "app_password"
+#  expiring = false
+#  retrieve_key = true
+#}
+#
+#resource "doppler_secret" "ldap_bind_password" {
+#  config  = "${var.environment}_ocis"
+#  name    = "LDAP_BIND_PASSWORD"
+#  project = "infrastructure"
+#  value   = authentik_token.ocis_ldap_password.key
+#}
 
 resource "tls_private_key" "ocis_ldap_key" {
   algorithm   = "ECDSA"
