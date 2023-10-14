@@ -83,8 +83,8 @@ resource "authentik_provider_ldap" "ldap_ocis" {
   bind_flow = data.authentik_flow.default-authentication-flow.id
   name      = "ldap-ocis"
   search_group = authentik_group.ldap_search.id
-  search_mode = "cached"
-  bind_mode = "cached"
+  search_mode = "direct"
+  bind_mode = "direct"
   certificate = authentik_certificate_key_pair.ldap-cert.id
   tls_server_name = "ak-outpost-ldap-ocis.authentik.svc.cluster.local"
 }
