@@ -93,3 +93,22 @@ resource "authentik_application" "ocis" {
   meta_launch_url   = format("https://ocis.%s/", var.base_domain)
   backchannel_providers = [authentik_provider_ldap.ldap_ocis.id]
 }
+
+resource "authentik_outpost" "ldap-ocis" {
+  name               = "ldap-ocis"
+  protocol_providers = [
+    authentik_provider_ldap.ldap_ocis.id
+  ]
+  config = jsonencode({
+    authentik_host                 = format("http://authentik/")
+    authentik_host_insecure        = true
+    authentik_host_browser         = format("https://authentik.%s/", var.base_domain)
+    log_level                      = "info"
+    object_naming_template         = "ak-outpost-%(name)s"
+    kubernetes_replicas            = 1
+    kubernetes_namespace           = "authentik"
+    kubernetes_service_type        = "ClusterIP"
+    kubernetes_disabled_components = ["ingress"]
+  })
+  service_connection = authentik_service_connection_kubernetes.local.id
+}
