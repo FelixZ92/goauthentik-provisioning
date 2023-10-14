@@ -33,6 +33,13 @@ resource "authentik_token" "ocis_ldap_password" {
   expiring = false
 }
 
+resource "doppler_secret" "ldap_bind_password" {
+  config  = "${var.environment}_ocis"
+  name    = "LDAP_BIND_PASSWORD"
+  project = "infrastructure"
+  value   = authentik_token.ocis_ldap_password.key
+}
+
 resource "tls_private_key" "ocis_ldap_key" {
   algorithm   = "ECDSA"
   ecdsa_curve = "P384"
