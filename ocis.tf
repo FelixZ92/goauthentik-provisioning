@@ -27,7 +27,7 @@ resource "authentik_user" "ocis_ldap_user" {
 }
 
 resource "authentik_token" "ocis_ldap_password" {
-  identifier = "ldap-ocis-password"
+  identifier = "ldap-ocis-bind-password"
   user       = authentik_user.ocis_ldap_user.id
   intent = "app_password"
   expiring = false
