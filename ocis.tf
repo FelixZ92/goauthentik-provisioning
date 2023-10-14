@@ -99,6 +99,7 @@ resource "authentik_outpost" "ldap-ocis" {
   protocol_providers = [
     authentik_provider_ldap.ldap_ocis.id
   ]
+  type = "ldap"
   config = jsonencode({
     authentik_host                 = format("http://authentik/")
     authentik_host_insecure        = true
