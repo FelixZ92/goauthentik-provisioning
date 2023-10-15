@@ -68,17 +68,6 @@ resource "tls_self_signed_cert" "ocis_ldap_cert" {
   ]
 }
 
-resource "kubernetes_secret" "hcloud_token" {
-  metadata {
-    name      = "ldap-ca"
-    namespace = "ocis"
-  }
-
-  data = {
-    "ldap-ca.crt" = tls_self_signed_cert.ocis_ldap_cert.cert_pem
-  }
-}
-
 resource "authentik_certificate_key_pair" "ldap-cert" {
   certificate_data = tls_self_signed_cert.ocis_ldap_cert.cert_pem
   key_data = tls_private_key.ocis_ldap_key.private_key_pem

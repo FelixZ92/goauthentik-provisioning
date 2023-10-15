@@ -9,10 +9,6 @@ terraform {
       source = "DopplerHQ/doppler"
       version = "1.3.0"
     }
-    kubernetes = {
-      source = "hashicorp/kubernetes"
-      version = ">=2.23.0"
-    }
   }
 }
 
